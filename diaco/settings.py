@@ -25,7 +25,7 @@ SECRET_KEY = 'l9c%*$!ixl*ay@f9kc$nft*#rp556&so&w9(^p#1#t%p0lez+y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1:8000', 'diaco502.herokuapp.com']
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 LOGIN_REDIRECT_URL = '/data/'
