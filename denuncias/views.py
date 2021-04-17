@@ -32,7 +32,18 @@ class Main(TemplateView):
                 for i in Sucursales.objects.raw('call getSucursales(%s, %s)', [request.POST['id_mun'], request.POST['id']]):
                     data.append({'pk': i.pk, 'sucrs': i.ubicacion})
             elif action == 'crqueja':
-                pass
+                cursor = connection.cursor()
+                cursor.execute('call spInsertQueja(%s, %s)', [request.POST['razon'], request.POST['tienda']] )
+            elif action == 'allneg':
+                data = []
+                for i in Negocios.objects.raw('call getAllNeg'):
+                    data.append({'pk': i.pk, 'all': i.nombre})
+            elif action == 'addCom':
+                cursor = connection.cursor()
+                cursor.execute('call spInsertNegocio(%s)', [request.POST['inputNegocio']])
+            elif action == 'addScr':
+                cursor = connection.cursor()
+                cursor.execute('call spInsertSucursal(%s,%s,%s)', [request.POST['inputSuc'], request.POST['idMux'], request.POST['idAll']])
             else:
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
@@ -70,32 +81,32 @@ class Data(ListView):
         context['quejas'] = self.get_queryset()
         return context
 
-class Negocio(SuccessMessageMixin, CreateView):
-    model = Negocios
-    form_class = FormNegocio
-    template_name = 'negocio.html'
-    success_url = '/negocio/'
-    success_message = 'Negocio creado.'
+# class Negocio(SuccessMessageMixin, CreateView):
+#     model = Negocios
+#     form_class = FormNegocio
+#     template_name = 'negocio.html'
+#     success_url = '/negocio/'
+#     success_message = 'Negocio creado.'
 
-    def post(self, request, *args, **kwargs):
-        data = {}
-        try:
-            action = request.POST['action']
-            if action == 'add':
-                # form = FormNegocio(request.POST), es lo mismo de abajo
-                form = self.get_form()
-                if form.is_valid():
-                    form.save()
-                else:
-                    data['error'] = form.errors
-            else:
-                data['error'] = 'No ha ingresado a ninguna opción'
-        except Exception as e:
-            data['error'] = str(e)
-        return JsonResponse(data)
+#     def post(self, request, *args, **kwargs):
+#         data = {}
+#         try:
+#             action = request.POST['action']
+#             if action == 'add':
+#                 # form = FormNegocio(request.POST), es lo mismo de abajo
+#                 form = self.get_form()
+#                 if form.is_valid():
+#                     form.save()
+#                 else:
+#                     data['error'] = form.errors
+#             else:
+#                 data['error'] = 'No ha ingresado a ninguna opción'
+#         except Exception as e:
+#             data['error'] = str(e)
+#         return JsonResponse(data)
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = 'Negocios - sucursales'
-        context['action'] = 'add'
-        return context
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['title'] = 'Negocios - sucursales'
+#         context['action'] = 'add'
+#         return context

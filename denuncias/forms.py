@@ -12,16 +12,14 @@ class FormQueja(Form):
     sucursal = ModelChoiceField(queryset=Sucursales.objects.none(), empty_label='Sucursales *')
     queja = forms.CharField(label='', widget=forms.Textarea(attrs={'placeholder':'Describa su queja *', 'id':'summernote'}))
 
+    newnegocio = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Nombre del negocio *', 'id': 'inputNegocio', 'autofocus':True}), required=True)
+    allnegocios = ModelChoiceField(queryset=Negocios.objects.none(), empty_label='Negocios *')
+    newsucursal = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Nombre de la sucursal *', 'id': 'inputSucursal'}), required=True)
+
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for form in self.visible_fields():
             form.field.widget.attrs['class'] = 'form-control'
             form.field.widget.attrs['autocomplete'] = 'off'
             form.field.widget.attrs['required'] = True 
-
-class FormNegocio(forms.ModelForm):
-    nombre = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Nombre del negocio *', 'class':'form-control', 'id': 'inputNegocio', 'autocomplete':'off', 'autofocus':True}), required=True)
-
-    class Meta:
-        model = Negocios
-        fields = '__all__'
