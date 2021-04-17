@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {% block css %}
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <title>{{ title }}</title>
+</head>
+<body>
+    <nav class="navbar fixed-top navbar-light bg-light">
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="navbar-brand mb-0 h1">Salir</a>
+        {% else %}
+        <a href="{% url 'login' %}" class="navbar-brand mb-0 h1">Entrar</a>
+        {% endif %}
+    </nav>
+    {% block contenido %}
+    {% endblock %}
+
+    {% if messages %}
+        {% for message in messages %}
+            <script>
+                Swal.fire({
+                    "title": "Felicidades",
+                    "text": "{{message}}",
+                    "icon": "success"
+                })
+            </script>
+        {% endfor %}
+    {% endif %}
+
+    {% if form.errors %}
+    {% for field in form %}
+        {% for error in field.errors %}
+        <script>
+            Swal.fire({
+                "title": "¡Error!",
+                "text": "{{ error|escape }}",
+                "icon": "error"
+            })
+        </script>
+        {% endfor %}
+    {% endfor %}
+    {% endif %}
+    
+</body>
+</html>
+{% block js %}
+{% endblock %}
