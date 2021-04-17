@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'diaco.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'diaco',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': ''
+        'NAME': 'fzy88zbaftas26rc',
+        'USER': 'z5easrs6u5stgawp',
+        'PASSWORD': 'doe25e96pspm4b8i',
+        'HOST': 'grp6m5lz95d9exiz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        'PORT': '3306'
     }
 }
 
