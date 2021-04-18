@@ -80,33 +80,3 @@ class Data(ListView):
         context['title'] = 'Quejas'
         context['quejas'] = self.get_queryset()
         return context
-
-# class Negocio(SuccessMessageMixin, CreateView):
-#     model = Negocios
-#     form_class = FormNegocio
-#     template_name = 'negocio.html'
-#     success_url = '/negocio/'
-#     success_message = 'Negocio creado.'
-
-#     def post(self, request, *args, **kwargs):
-#         data = {}
-#         try:
-#             action = request.POST['action']
-#             if action == 'add':
-#                 # form = FormNegocio(request.POST), es lo mismo de abajo
-#                 form = self.get_form()
-#                 if form.is_valid():
-#                     form.save()
-#                 else:
-#                     data['error'] = form.errors
-#             else:
-#                 data['error'] = 'No ha ingresado a ninguna opción'
-#         except Exception as e:
-#             data['error'] = str(e)
-#         return JsonResponse(data)
-
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['title'] = 'Negocios - sucursales'
-#         context['action'] = 'add'
-#         return context

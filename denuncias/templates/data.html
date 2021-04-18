@@ -142,6 +142,7 @@
     });
 
     var fila;
+    var update = $('#btnRefesh');
     $(document).on('click', '.modalQueja', function(){
         fila = $(this).closest('tr');
         id = parseInt(fila.find('td:eq(1)').text());
@@ -171,5 +172,9 @@
             })
         }
     });
+
+    update.click(function(e){
+        alert('hey')
+    })
 </script>
 {% endblock %}

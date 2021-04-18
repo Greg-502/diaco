@@ -25,7 +25,7 @@ SECRET_KEY = 'l9c%*$!ixl*ay@f9kc$nft*#rp556&so&w9(^p#1#t%p0lez+y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1:8000', 'diaco502.herokuapp.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'diaco502.herokuapp.com']
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 LOGIN_REDIRECT_URL = '/data/'
@@ -81,10 +81,10 @@ WSGI_APPLICATION = 'diaco.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'fzy88zbaftas26rc',
-        'USER': 'z5easrs6u5stgawp',
-        'PASSWORD': 'doe25e96pspm4b8i',
-        'HOST': 'grp6m5lz95d9exiz.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        'NAME': 'heroku_66299c00ee0bb1b',
+        'USER': 'bc5f9e7e8b054d',
+        'PASSWORD': '72d8454e',
+        'HOST': 'us-cdbr-east-03.cleardb.com',
         'PORT': '3306'
     }
 }
