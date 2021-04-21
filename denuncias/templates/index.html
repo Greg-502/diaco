@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block css %}
+<!-- <link rel="stylesheet" href="{% static 'css/main.css' %}"> -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
 {% endblock %}
@@ -8,7 +9,7 @@
 <section style="padding-top: 3rem">
 	<div class="container">
 		<div class="row">
-			<div class="jumbotron jumbotron-fluid text-center bg-white col-md-12 col-sm-12">
+			<div class="jumbotron jumbotron-fluid text-center bg-transparent col-md-12 col-sm-12">
 				<div class="container">
 					<h1 class="display-4">Denuncias</h1>
 					<p class="lead">Si no encuentra el negocio o sucursal, puede añadirlos <a href="#" style="text-decoration:none;" id="newTags">aquí</a>.</p>

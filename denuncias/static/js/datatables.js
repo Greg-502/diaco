@@ -58,7 +58,9 @@ $(()=>{
                 viewTotal: true
             }
         },
-        columnDefs:[{
+        columnDefs:[
+            { orderable: false, targets: 8 },
+            {
             searchPanes:{
                 show:false
             },

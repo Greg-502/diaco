@@ -17,6 +17,10 @@
         <a href="{% url 'logout' %}" class="navbar-brand mb-0 h1">Salir</a>
         {% else %}
         <a href="{% url 'login' %}" class="navbar-brand mb-0 h1">Entrar</a>
+        <!-- <button class="switch" id="switch">
+            <span><i class="fas fa-sun"></i></span>
+            <span><i class="fas fa-moon"></i></span>
+        </button> -->
         {% endif %}
     </nav>
     {% block contenido %}
@@ -47,7 +51,6 @@
         {% endfor %}
     {% endfor %}
     {% endif %}
-    
 </body>
 </html>
 {% block js %}

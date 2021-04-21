@@ -1,0 +1,27 @@
+{% block css %}
+<style>
+    *,
+    *::before,
+    *::after {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+{% endblock %}
+<div class="contaner">
+    <div class="row">
+        <lottie-player src="https://assets3.lottiefiles.com/private_files/lf30_bdec2jzh.json"  background="transparent"  speed="1" loop  autoplay></lottie-player>
+        <!-- <lottie-player src="https://assets7.lottiefiles.com/packages/lf20_uF120X.json"  background="transparent"  speed="1"  style="width: 500px; height: 500px;"  loop  autoplay></lottie-player> -->
+    </div>
+</div>
+{% block js %}
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+{% endblock %}

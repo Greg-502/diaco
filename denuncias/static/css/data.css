@@ -26,13 +26,17 @@ section:nth-of-type(2){
     /* height: 100vh; */
 }
 
+section:nth-of-type(2) h2{
+    color: #fff;
+}
+
+section:nth-of-type(2) h3{
+    color: #fff;
+}
+
 #btnRefesh:hover{
     background-color: #fff !important;
     color: #000 !important;
-}
-
-h5{
-    color: #fff;
 }
 
 .medidor{
@@ -42,9 +46,7 @@ h5{
     align-items: center;
     border-radius: -webkit-border-radius: 8px;
     -moz-border-radius: 8px; border-radius: 8px;
-    /* border: 1px solid #fff; */
-    background-color: rgba(255,255,255,0.7);
-    margin: 2rem 1rem 2rem 1rem;
+    background-color: rgba(255,255,255,0.8);
     box-shadow: 10px 10px 14px 1px rgba(0,0,0,0.12);
     -webkit-box-shadow: 10px 10px 14px 1px rgba(0,0,0,0.12);
     -moz-box-shadow: 10px 10px 14px 1px rgba(0,0,0,0.12);
@@ -60,7 +62,7 @@ h5{
 canvas{
     margin-bottom: 2rem; 
     /* padding: 0.5rem; */
-    background-color: rgba(255,255,255,0.7); 
+    background-color: rgba(255,255,255,0.8); 
     border-radius: -webkit-border-radius: 8px;
     -moz-border-radius: 8px; border-radius: 8px;
     box-shadow: 10px 10px 14px 1px rgba(0,0,0,0.12);

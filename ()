@@ -1,0 +1,31 @@
+feat(Estadísticas gá
+# Por favor ingresa el mensaje del commit para tus cambios. Las
+#  líneas que comiencen con '#' serán ignoradas, y un mensaje
+#  vacío aborta el commit.
+#
+# En la rama heroku
+# Tu rama está actualizada con 'origin/heroku'.
+#
+# Cambios a ser confirmados:
+#	modificado:     denuncias/__pycache__/models.cpython-39.pyc
+#	modificado:     denuncias/__pycache__/urls.cpython-39.pyc
+#	modificado:     denuncias/__pycache__/views.cpython-39.pyc
+#	nuevo archivo:  denuncias/migrations/0010_auto_20210417_2051.py
+#	nuevo archivo:  denuncias/migrations/0011_auto_20210419_1258.py
+#	nuevo archivo:  denuncias/mixins.py
+#	modificado:     denuncias/static/css/data.css
+#	nuevo archivo:  denuncias/static/css/main.css
+#	nuevo archivo:  denuncias/static/css/main.css.map
+#	nuevo archivo:  denuncias/static/css/main.scss
+#	modificado:     denuncias/static/js/datatables.js
+#	nuevo archivo:  denuncias/static/js/main.js
+#	nuevo archivo:  denuncias/templates/404.html
+#	modificado:     denuncias/templates/base.html
+#	modificado:     denuncias/templates/data.html
+#	modificado:     denuncias/templates/index.html
+#	modificado:     denuncias/views.py
+#	modificado:     diaco/__pycache__/settings.cpython-39.pyc
+#	modificado:     diaco/__pycache__/urls.cpython-39.pyc
+#	modificado:     diaco/settings.py
+#	modificado:     diaco/urls.py
+#

@@ -23,9 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'l9c%*$!ixl*ay@f9kc$nft*#rp556&so&w9(^p#1#t%p0lez+y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'diaco502.herokuapp.com']
+ALLOWED_HOSTS = ['diaco502.herokuapp.com']
+# ALLOWED_HOSTS = ['127.0.0.1']
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 LOGIN_REDIRECT_URL = '/data/'
@@ -86,9 +87,13 @@ DATABASES = {
         'PASSWORD': '72d8454e',
         'HOST': 'us-cdbr-east-03.cleardb.com',
         'PORT': '3306'
+        # 'NAME': 'diaco',
+        # 'USER': 'root',
+        # 'PASSWORD': '',
+        # 'HOST': 'localhost',
+        # 'PORT': ''
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
