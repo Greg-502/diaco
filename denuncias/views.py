@@ -4,7 +4,6 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, TemplateView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.db.models import Count
 from datetime import datetime
 from django.db import connection
 from django.shortcuts import render
@@ -102,7 +101,7 @@ class Data(ListView):
         return JsonResponse(data, safe=False)
 
     def get_queryset(self):
-        return self.model.objects.filter(estado = True)
+        return self.model.objects.all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

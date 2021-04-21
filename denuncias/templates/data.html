@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load tz %}
 {% block css %}
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
 <link rel="stylesheet" type="text/css"
@@ -51,13 +52,9 @@
                         <th>Sucursal</th>
                         <th>Fecha</th>
                         {% if user.is_staff %}
-                        <th>
-                            <center>Queja</center>
-                        </th>
+                        <th><center>Queja</center></th>
                         {% else %}
-                        <th>
-                            <center>Quitar</center>
-                        </th>
+                        <th><center>Quitar</center></th>
                         {% endif %}
                     </tr>
                 </thead>
@@ -71,7 +68,7 @@
                         <td>{{ queja.sucursal.municipio }}</td>
                         <td>{{ queja.sucursal.negocio }}</td>
                         <td>{{ queja.sucursal }}</td>
-                        <td>{{ queja.creacion | date:"d-m-Y" }}</td>
+                        <td>{{ queja.creacion|utc|date:"d-m-Y" }}</td>
                         {% if user.is_staff %}
                         <td class="d-flex justify-content-center"><button
                                 class="btn btn-outline-info btn-sm modalQueja">Ver</button></td>
@@ -371,7 +368,7 @@
                     data: {
                         labels: deptos,
                         datasets: [{
-                            label: 'Departamentos',
+                            label: 'Quejas',
                             data: quejas,
                             backgroundColor: bgColor,
                             borderWidth: 1
@@ -431,7 +428,7 @@
                         labels: fechas,
                         datasets: [
                             {
-                                label: 'Historial',
+                                label: 'Quejas',
                                 fill: true,
                                 lineTension: 0.0,
                                 backgroundColor:'rgba(45,143,229,0.4)',
