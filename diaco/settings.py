@@ -26,7 +26,6 @@ SECRET_KEY = 'l9c%*$!ixl*ay@f9kc$nft*#rp556&so&w9(^p#1#t%p0lez+y'
 DEBUG = False
 
 ALLOWED_HOSTS = ['diaco502.herokuapp.com']
-# ALLOWED_HOSTS = ['127.0.0.1']
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 LOGIN_REDIRECT_URL = '/data/'
@@ -87,11 +86,6 @@ DATABASES = {
         'PASSWORD': '72d8454e',
         'HOST': 'us-cdbr-east-03.cleardb.com',
         'PORT': '3306'
-        # 'NAME': 'diaco',
-        # 'USER': 'root',
-        # 'PASSWORD': '',
-        # 'HOST': 'localhost',
-        # 'PORT': ''
     }
 }
 
