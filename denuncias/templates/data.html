@@ -54,14 +54,14 @@
                         {% if user.is_staff %}
                         <th><center>Queja</center></th>
                         {% else %}
-                        <th><center>Quitar</center></th>
+                        <th><center>Liberar</center></th>
                         {% endif %}
                     </tr>
                 </thead>
                 <tbody>
                     {% for queja in quejas %}
                     <tr>
-                        <td class="text-right">{{ forloop.counter }}</td>
+                        <td>{{ forloop.counter }}</td>
                         <td style="display: none;">{{ queja.id }}</td>
                         <td>{{ queja.sucursal.municipio.departamento.region }}</td>
                         <td>{{ queja.sucursal.municipio.departamento }}</td>
@@ -70,11 +70,9 @@
                         <td>{{ queja.sucursal }}</td>
                         <td>{{ queja.creacion|utc|date:"d-m-Y" }}</td>
                         {% if user.is_staff %}
-                        <td class="d-flex justify-content-center"><button
-                                class="btn btn-outline-info btn-sm modalQueja">Ver</button></td>
+                        <td class="d-flex justify-content-center"><button class="btn btn-outline-info btn-sm modalQueja">Ver</button></td>
                         {% else %}
-                        <td class="d-flex justify-content-center"><button class="btn btn-outline-danger btn-sm"><i
-                                    class="fas fa-bookmark"></i></button></td>
+                        <td class="d-flex justify-content-center"><button class="btn btn-outline-info btn-sm modalDelete"><i class="fas fa-share"></i></button></td>
                         {% endif %}
                     </tr>
                     {% endfor %}
@@ -104,7 +102,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h3>Contador</h3>
+                <h3>Quejas</h3>
                 <div class="col-lg-12 medidor" style="height: 175px;">
                     <h1 id="counter"></h1>
                 </div>
@@ -123,7 +121,7 @@
 
         <div class="row mb-4">
             <div class="col" id="contenedor_lineal">
-                <h3>Histórico</h3>
+                <h3>Historial</h3>
                 <canvas class="col-lg-12" id="line"></canvas>
             </div>
 
@@ -157,12 +155,15 @@
 
 <script type="text/javascript">
     var update = $('#btnRefesh');
+
     const Toast = Swal.mixin({
         toast: true,
         position: 'top',
         showConfirmButton: false,
         timer: 3000,
     });
+
+    
 
     $(document).on('click', '.modalQueja', function () {
         fila = $(this).closest('tr');
@@ -459,14 +460,67 @@
         })
     }
 
+    $(document).on('click', '.modalDelete', function () {
+        tabla = $('#example').DataTable();
+        fila = $(this).closest('tr');
+        id = parseInt(fila.find('td:eq(1)').text());
+        
+        if (id) {
+            Swal.fire({
+                title: '¿Seguro?',
+                text: "Esta queja se marcará como resuelta.",
+                icon: 'warning',
+                cancelButtonColor: '#d9534f',
+                confirmButtonColor: '#5cb85c',
+                showCancelButton: true,
+                cancelButtonText: 'Cancelar',
+                confirmButtonText: 'Confirmar',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: window.location.pathname,
+                        method: 'POST',
+                        data: {
+                            'action': 'remove',
+                            'id': id
+                        },
+                        dataType: 'JSON',
+                    }).done(function (data) {
+                        if(!data.hasOwnProperty('error')){
+                            // window.location.reload();
+                            // tabla.find(fila).remove();
+                            // tabla.row(fila.parents('tr')).remove().draw();
+                            tabla.row(fila, { page: 'current' }).remove().draw();
+                            Swal.fire({
+                                icon: 'success',
+                                title: '¡Listo!',
+                                text: 'La queja ha sido resuelta.',
+                            })
+                            return false;
+                        }
+                        alert('Mal');
+                    }).fail(function (data) {
+                        alert('Muy mal');
+                    })
+                }
+            })
+        } else {
+            Toast.fire({
+                icon: 'error',
+                title: 'Algo salió mal.'
+            });
+        }
+    });
+
     $(() => {
-        var regiones = []
-        var deptos = []
-        var negocios = []
-        var fechas = []
-        var quejas = []
-        var bgColor = []
-        var bgBorder = []
+        var regiones = [];
+        var deptos = [];
+        var negocios = [];
+        var fechas = [];
+        var quejas = [];
+        var bgColor = [];
+        var bgBorder = [];
 
         contador();
         radiales();

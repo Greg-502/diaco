@@ -76,7 +76,7 @@ class Data(ListView):
                 data = Quejas.objects.get(pk=request.POST['id']).toJSON()
             elif action == 'count':
                 data = []
-                quejas = Quejas.objects.count()
+                quejas = Quejas.objects.filter(estado = True).count()
                 data.append(quejas)
             elif action == 'radial':
                 data = []
@@ -94,6 +94,9 @@ class Data(ListView):
                 data = []
                 for i in Quejas.objects.raw('call spXfechas'):
                     data.append({'totales':i.totales, 'creado':i.creado})
+            elif action == 'remove':
+                cursor = connection.cursor()
+                cursor.execute("call spUpdateQueja("+'%s'+")", [request.POST['id']])
             else:
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
@@ -101,7 +104,7 @@ class Data(ListView):
         return JsonResponse(data, safe=False)
 
     def get_queryset(self):
-        return self.model.objects.all()
+        return self.model.objects.filter(estado = True)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
