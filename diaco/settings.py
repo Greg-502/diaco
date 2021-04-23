@@ -32,6 +32,8 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 LOGIN_REDIRECT_URL = '/data/'
 LOGOUT_REDIRECT_URL = '/'
 
+# SESSION_COOKIE_AGE = 7200
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -82,10 +84,10 @@ WSGI_APPLICATION = 'diaco.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'heroku_66299c00ee0bb1b',
-        'USER': 'bc5f9e7e8b054d',
-        'PASSWORD': '72d8454e',
-        'HOST': 'us-cdbr-east-03.cleardb.com',
+        'NAME': 'vsvgl17v1v03eljh',
+        'USER': 'jrwathta3cxtgnvk',
+        'PASSWORD': 'uxxqbexe7qbjd2ya',
+        'HOST': 'z5zm8hebixwywy9d.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
         'PORT': '3306'
         # 'NAME': 'diaco',
         # 'USER': 'root',

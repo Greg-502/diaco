@@ -18,6 +18,7 @@ class Regiones(models.Model):
 class Departamentos(models.Model):
     nombre_dep = models.CharField(max_length=100, unique=True)
     region = models.ForeignKey(Regiones, on_delete=PROTECT)
+    mapa = models.CharField(max_length=10, unique=True)
 
     def toJSON(self):
         item = model_to_dict(self)

@@ -97,11 +97,21 @@ class Data(ListView):
             elif action == 'remove':
                 cursor = connection.cursor()
                 cursor.execute("call spUpdateQueja("+'%s'+")", [request.POST['id']])
+            elif action == 'mapas':
+                data = []
+                for i in Quejas.objects.raw('call spXmapa'):
+                    data.append({'mapa': i.mapa, 'totales':i.totales})
             else:
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
+    
+    # def mapas(self):
+    #     data = []
+    #     for i in Quejas.objects.raw('call spXmapa'):
+    #         data.append({'mapa': i.mapa, 'totales':i.totales})
+    #     return data
 
     def get_queryset(self):
         return self.model.objects.filter(estado = True)
