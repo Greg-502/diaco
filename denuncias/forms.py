@@ -14,7 +14,7 @@ class FormQueja(Form):
 
     newnegocio = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Nombre del negocio *', 'id': 'inputNegocio', 'autofocus':True}), required=True)
     allnegocios = ModelChoiceField(queryset=Negocios.objects.none(), empty_label='Negocios *')
-    newsucursal = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Sucursal o ubicación *', 'id': 'inputSucursal'}), required=True)
+    newsucursal = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Referencia o ubicación *', 'id': 'inputSucursal'}), required=True)
 
 
     def __init__(self, *args, **kwargs):
