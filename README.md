@@ -44,3 +44,7 @@ python3 manage.py migrate
 
 ## Instalar requirements desde fichero
 22. Con el entorno virtual activado `pip3 install -r requirements.txt`
+
+## Capturas
+### Formulario principal
+![Principal](https://mega.nz/file/2EM2mTyY#64V9n2sVp1we35k8ZtS7Vm8HzgqlCc_RXrfs-lAMSu0)
