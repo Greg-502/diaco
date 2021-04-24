@@ -1,4 +1,4 @@
 Django == 3.1.7
 mysqlclient == 2.0.3
-gunicorn
-whitenoise
+gunicorn == 20.1.0
+whitenoise == 5.2.0
