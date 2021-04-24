@@ -18,19 +18,29 @@
 12. `cd nombre_proyecto`
 13. `python3 manage.py startapp nombre_app`
 
+## Base de batos/migraciones
+14. Crear base de datos sino fuera SQLite
+15. En settings.py agregar las credenciales
+16. Correr migraciones
+```
+python3 manage.py makemigrations
+python3 manage.py migrate
+```
+17. Llenar tablas y correr procedimientos almacenados.
+
 ## Correr
-14. `python3 manage.py runserver`
-15. Detener con `ctrl` + `c`
+18. `python3 manage.py runserver`
+19. Detener con `ctrl` + `c`
 
 ## Desactivar entorno
-16. `deactivate`
+20. `deactivate`
 
 ## Agregar dependecias a fichero.txt
-17. Desde la ubicación de la(s) aplicacion(es), crear requirements.txt y agregar, ademas de django las futuras dependencias con sus versiones ej.: 
+21. Desde la ubicación de la(s) aplicacion(es), crear requirements.txt y agregar, ademas de django las futuras dependencias con sus versiones ej.: 
 - Django == 3.1.7
 - mysqlclient == 2.0.3
 - gunicorn == 20.1.0
 - ...
 
 ## Instalar requirements desde fichero
-18. Con el entorno virtual activado `pip3 install -r requirements.txt`
+22. Con el entorno virtual activado `pip3 install -r requirements.txt`
