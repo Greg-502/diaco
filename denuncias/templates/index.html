@@ -4,6 +4,8 @@
 <!-- <link rel="stylesheet" href="{% static 'css/main.css' %}"> -->
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+    integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 {% endblock %}
 {% block contenido %}
 <section style="padding-top: 3rem">
@@ -48,37 +50,38 @@
                 </form>
             </div>
 
-            <!-- modal -->
+            <!-- modal comercios -->
             <div class="modal fade" id="myModal" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 class="modal-title" id="exampleModalLabel">Registro</h3>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <h5 class="text-muted">Negocio</h5>
-                        <div class="input-group mb-3">
-                            {{ form.newnegocio }}
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-success" id="btnNegocio" type="button">Agregar</button>
-                            </div>
+                        <div class="modal-header">
+                            <h3 class="modal-title" id="exampleModalLabel">Registro</h3>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
                         </div>
-                        <br>
-                        <h5 class="text-muted">Sucursal</h5>
-                        <small class="text-danger">* Seleccione el municipio en el formulario anterior</small>
-                        <div class="input-group mb-3">
-                            {{ form.allnegocios }}
-                            <div class="input-group-prepend">
-                                <label class="input-group-text">Negocio</label>
+                        <div class="modal-body">
+                            <h5 class="text-muted">Negocio</h5>
+                            <div class="input-group mb-3">
+                                {{ form.newnegocio }}
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-success" id="btnNegocio" type="button">Agregar</button>
+                                </div>
                             </div>
-                        </div>
-                        <div class="input-group mb-3">
-                            {{ form.newsucursal }}
-                            <div class="input-group-append">
-                                <button class="btn btn-outline-success" id="btnSucursal" type="button">Agregar</button>
+                            <br>
+                            <h5 class="text-muted">Sucursal</h5>
+                            <small class="text-danger">* Seleccione el municipio en el formulario anterior</small>
+                            <div class="input-group mb-3">
+                                {{ form.allnegocios }}
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text">Negocio</label>
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                {{ form.newsucursal }}
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-success" id="btnSucursal" type="button">Agregar</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -101,357 +104,7 @@
 <script type="text/javascript" src="{% static 'js/summernote-es-EU.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/summernote.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/select2.js' %}"></script>
-<script>
-    let boton = $('#enviar');
-    let comercios = $('#newTags');
-    let addCom = $('#btnNegocio');
-    let addSuc = $('#btnSucursal');
 
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top',
-        showConfirmButton: false,
-        timer: 3000,
-    });
-
-    var deptos = $('select[name=departamento]');
-    var municipios = $('select[name=municipio]');
-    var negocios = $('select[name=negocio]');
-    var sucursales = $('select[name=sucursal]');
-    var queja = $('textarea[name=queja]');
-
-    var todos = $('select[name=allnegocios]');
-    var newCom = $('#inputNegocio');
-    var newSuc = $('#inputSucursal');
-
-    $(() => {
-        $('select[name=departamento]').on('change', function () {
-            var id = $(this).val();
-            var opciones = '<option value="">Municipios *</option>'
-            var opcionesneg = '<option value="">Negocios *</option>'
-            var opcsuc = '<option value="">Sucursales *</option>'
-
-            if(id === ''){
-                municipios.html(opciones);
-                negocios.html(opcionesneg);
-                sucursales.html(opcsuc);
-                return false
-            }
-            $.ajax({
-                url: window.location.pathname,
-                method: 'POST',
-                data: {
-                    'action': 'munis',
-                    'id': id
-                },
-                dataType: 'JSON'
-            }).done(function (data) {
-                if(!data.hasOwnProperty('error')){
-                    $.each(data, function(key, value){
-                        opciones += '<option value="'+value.pk+'">'+ value.muni +'</option>'
-                    })
-                    return false
-                }
-                Toast.fire({
-                    icon: 'warning',
-                    title: 'Algo salió mal.'
-                });
-            }).fail(function (data){
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Algo salió mal.'
-                });
-            }).always(function (data){
-                municipios.html(opciones);
-                negocios.html(opcionesneg);
-                sucursales.html(opcsuc);
-            });
-        });
-    
-        $('select[name=municipio]').on('change', function () {
-            var id = $(this).val();
-            var opciones = '<option value="">Negocios *</option>'
-            var opcsuc = '<option value="">Sucursales *</option>'
-
-            if(id === ''){
-                negocios.html(opciones);
-                sucursales.html(opcsuc);
-                return false
-            }
-            $.ajax({
-                url: window.location.pathname,
-                method: 'POST',
-                data: {
-                    'action': 'negos',
-                    'id': id
-                },
-                dataType: 'JSON'
-            }).done(function (data) {
-                if(!data.hasOwnProperty('error')){
-                    $.each(data, function(key, value){
-                        opciones += '<option value="'+value.pk+'">'+ value.nego +'</option>'
-                    })
-                    return false
-                }
-                Toast.fire({
-                    icon: 'warning',
-                    title: 'Algo salió mal.'
-                });
-            }).fail(function (data){
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Algo salió mal.'
-                });
-            }).always(function (data){
-                negocios.html(opciones);
-                sucursales.html(opcsuc);
-            });
-        });
-
-        $('select[name=negocio]').on('change', function () {
-            var id = $(this).val();
-            var id_mun = municipios.val();
-            var opcsuc = '<option value="">Sucursales *</option>'
-
-            if(id === ''){
-                sucursales.html(opcsuc);
-                return false
-            }
-            $.ajax({
-                url: window.location.pathname,
-                method: 'POST',
-                data: {
-                    'action': 'sucurs',
-                    'id': id,
-                    'id_mun': id_mun
-                },
-                dataType: 'JSON'
-            }).done(function (data) {
-                if(!data.hasOwnProperty('error')){
-                    $.each(data, function(key, value){
-                        opcsuc += '<option value="'+value.pk+'">'+ value.sucrs +'</option>'
-                    })
-                    return false
-                }
-                Toast.fire({
-                    icon: 'warning',
-                    title: 'Algo salió mal.'
-                });
-            }).fail(function (data){
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Algo salió mal.'
-                });
-            }).always(function (data){
-                sucursales.html(opcsuc);
-            });
-        });
-    
-        boton.click(function(e){
-            var tienda = sucursales.val();
-	        var razon = queja.val();
-
-            if(razon != '' && tienda){
-                e.preventDefault();
-                Swal.fire({
-                    title: 'Verifique',
-                    text: "¿Los datos son correctos?",
-                    icon: 'warning',
-                    cancelButtonColor: '#d9534f',
-                    confirmButtonColor: '#5cb85c',
-                    showCancelButton: true,
-                    cancelButtonText: 'Revisar',
-                    confirmButtonText: 'Sí, enviar',
-                    reverseButtons: true
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            url: window.location.pathname,
-                            method: 'POST',
-                            data: {
-                                'action': 'crqueja',
-                                'razon': razon,
-                                'tienda': tienda
-                            }
-                        }).done(function (data) { 
-                            if(!data.hasOwnProperty('error')){
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: '¡Enviado!',
-                                    text: 'Daremos seguimiento a su queja.',
-                                })
-
-                                deptos.val(null).trigger("change");
-                                $('#summernote').summernote('code','');
-
-                                return false
-                            }
-                            Swal.fire({
-                                icon: 'error',
-                                title: '¡Error!',
-                                text: 'Los datos no pudieron ser guardados.',
-                            })
-                        }).fail(function (data){
-                            Swal.fire({
-                                icon: 'error',
-                                title: '¡Error!',
-                                text: 'Algo ha dio mal. Intente nuevamente',
-                            })
-                        });
-                    }
-                })
-            } else {
-                e.preventDefault();
-                Swal.fire({
-                    icon: 'warning',
-                    title: '¡Campos vacíos!',
-                    text: 'Todos los campos son obligatorios',
-                })
-            }
-        });
-
-        comercios.click(function(e){
-            e.preventDefault();
-	        $('#myModal').modal("show");
-            var allopc = '<option value="">Negocios *</option>'
-
-            $.ajax({
-                url: window.location.pathname,
-                method: 'POST',
-                data: {'action': 'allneg'},
-                dataType: 'JSON'
-            }).done(function (data){
-                if(!data.hasOwnProperty('error')){
-                    $.each(data, function(key, value){
-                        allopc += '<option value="'+value.pk+'">'+ value.all +'</option>'
-                    })
-                    return false
-                }
-                Toast.fire({
-                    icon: 'warning',
-                    title: 'Algo salió mal.'
-                });
-            }).fail(function (data){
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Algo salió mal.'
-                });
-            }).always(function (data){
-                todos.html(allopc);
-            })
-        })
-        
-        addCom.click(function(){
-            var inputNegocio = newCom.val()
-            var allopc = '<option value="">Negocios *</option>'
-
-            if (inputNegocio != '') {
-                $.ajax({
-                    url: window.location.pathname,
-                    method: 'POST',
-                    data: {
-                        'action': 'addCom',
-                        'inputNegocio': inputNegocio,
-                    },
-                    dataType: 'JSON'
-                }).done(function (data) {
-                    if(!data.hasOwnProperty('error')){
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Guardado.'
-                        });
-
-                        $.ajax({
-                            url: window.location.pathname,
-                            method: 'POST',
-                            data: {'action': 'allneg'},
-                            dataType: 'JSON'
-                        }).done(function (data){
-                            if(!data.hasOwnProperty('error')){
-                                $.each(data, function(key, value){
-                                    allopc += '<option value="'+value.pk+'">'+ value.all +'</option>'
-                                })
-                                return false
-                            }
-                            Toast.fire({
-                                icon: 'warning',
-                                title: 'Algo salió mal.'
-                            });
-                        }).fail(function (data){
-                            Toast.fire({
-                                icon: 'error',
-                                title: 'Algo salió mal.'
-                            });
-                        }).always(function (data){
-                            todos.html(allopc);
-                        })
-                        return false
-                    }
-                    Toast.fire({
-                        icon: 'warning',
-                        title: 'Ya existe.'
-                    });
-                }).fail(function (data){
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Algo salió mal.'
-                    });
-                }).always(function (data){
-                    newCom.val('')
-                });
-            } else {
-                Toast.fire({
-                    icon: 'warning',
-                    title: 'Llene el campo.'
-                });
-            }
-        })
-
-        addSuc.click(function(){
-            var idMux = municipios.val()
-            var idAll = todos.val()
-            var inputSuc = newSuc.val()
-
-            if (idMux && idAll && inputSuc) {
-                $.ajax({
-                    url: window.location.pathname,
-                    method: 'POST',
-                    data: {
-                        'action': 'addScr',
-                        'inputSuc': inputSuc,
-                        'idMux': idMux,
-                        'idAll': idAll
-                    },
-                    dataType: 'JSON'
-                }).done(function(data) {
-                    if(!data.hasOwnProperty('error')){
-                        Toast.fire({
-                            icon: 'success',
-                            title: 'Agregado.'
-                        });
-
-                        $('#myModal').modal('hide');
-                        municipios.val(null).trigger("change");
-				        newSuc.val(null).trigger("change");
-                        return false
-                    }
-                    Toast.fire({
-                        icon: 'warning',
-                        title: 'Algo salió mal.'
-                    });
-                }).fail(function(data) {
-                    Toast.fire({
-                        icon: 'error',
-                        title: 'Algo salió mal.'
-                    });
-                })
-            } else {
-                Toast.fire({
-                    icon: 'warning',
-			        title: 'Campos faltantes.'
-                });
-            }
-        })
-    });
-</script>
+<script type="text/javascript" src="{% static 'js/main/combox.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/main/addComercios.js' %}"></script>
 {% endblock %}

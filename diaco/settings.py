@@ -25,8 +25,8 @@ SECRET_KEY = 'l9c%*$!ixl*ay@f9kc$nft*#rp556&so&w9(^p#1#t%p0lez+y'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['diaco502.herokuapp.com']
-# ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['diaco502.herokuapp.com']
+ALLOWED_HOSTS = []
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 LOGIN_REDIRECT_URL = '/data/'
@@ -84,16 +84,16 @@ WSGI_APPLICATION = 'diaco.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'vsvgl17v1v03eljh',
-        'USER': 'jrwathta3cxtgnvk',
-        'PASSWORD': 'uxxqbexe7qbjd2ya',
-        'HOST': 'z5zm8hebixwywy9d.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        'PORT': '3306'
-        # 'NAME': 'diaco',
-        # 'USER': 'root',
-        # 'PASSWORD': '',
-        # 'HOST': 'localhost',
-        # 'PORT': ''
+        # 'NAME': 'vsvgl17v1v03eljh',
+        # 'USER': 'jrwathta3cxtgnvk',
+        # 'PASSWORD': 'uxxqbexe7qbjd2ya',
+        # 'HOST': 'z5zm8hebixwywy9d.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
+        # 'PORT': '3306'
+        'NAME': 'diaco',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': ''
     }
 }
 
@@ -129,8 +129,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'xander10ski@gmail.com'
+EMAIL_HOST_PASSWORD = 'pokemon123456'
+EMAIL_PORT = 587
 
 STATIC_URL = '/static/'

@@ -1,8 +1,6 @@
 from django import forms
-from django.forms import fields
 from django.forms.forms import Form
 from django.forms.models import ModelChoiceField
-from django.forms.widgets import Textarea
 from .models import *
 
 class FormQueja(Form):
