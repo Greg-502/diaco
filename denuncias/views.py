@@ -1,12 +1,12 @@
 import threading
-# from django.core import serializers
+from django.core import serializers
 # import smtplib
 # from email.mime.text import MIMEText
 # from email.mime.multipart import MIMEMultipart
 # from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import get_template
 from django.core.mail import EmailMultiAlternatives
-from django.http.response import JsonResponse
+from django.http.response import HttpResponse, JsonResponse
 # from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
@@ -21,10 +21,6 @@ from .forms import *
 
 class Main(TemplateView):
     template_name = 'index.html'
-
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
         data = {}
@@ -65,7 +61,10 @@ class Main(TemplateView):
                 cursor.execute('call spInsertSucursal(%s,%s,%s)', [request.POST['inputSuc'], request.POST['idMux'], request.POST['idAll']])
             elif action == 'search':
                 data = []
-                data = Quejas.objects.get(pk=request.POST['id']).toJSON()
+                try:
+                    data = Quejas.objects.get(pk=request.POST['id']).toSearch()
+                except Exception as e:
+                    return HttpResponse(e)
             else:
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
@@ -142,10 +141,6 @@ class Data(ListView):
     model = Quejas
     template_name = 'data.html'
 
-    @method_decorator(csrf_exempt)
-    def dispatch(self, request, *args, **kwargs):
-        return super().dispatch(request, *args, **kwargs)
-
     def post(self, request, *args, **kwargs):
         data = {}
         try:
@@ -201,5 +196,5 @@ class Data(ListView):
         context['quejas'] = self.get_queryset()
         return context
 
-def handler404(request, exception):
-    return render(request, '404.html')
+# def page_not_found(request, exception):
+#     return render(request, '404.html')

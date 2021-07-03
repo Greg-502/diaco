@@ -29,7 +29,8 @@ $(() => {
                 'action': 'munis',
                 'id': id
             },
-            dataType: 'JSON'
+            dataType: 'JSON',
+            headers: {'X-CSRFToken': csrftoken}
         }).done(function (data) {
             if(!data.hasOwnProperty('error')){
                 $.each(data, function(key, value){
@@ -70,7 +71,8 @@ $(() => {
                 'action': 'negos',
                 'id': id
             },
-            dataType: 'JSON'
+            dataType: 'JSON',
+            headers: {'X-CSRFToken': csrftoken}
         }).done(function (data) {
             if(!data.hasOwnProperty('error')){
                 $.each(data, function(key, value){
@@ -110,7 +112,8 @@ $(() => {
                 'id': id,
                 'id_mun': id_mun
             },
-            dataType: 'JSON'
+            dataType: 'JSON',
+            headers: {'X-CSRFToken': csrftoken}
         }).done(function (data) {
             if(!data.hasOwnProperty('error')){
                 $.each(data, function(key, value){
@@ -149,10 +152,10 @@ $(() => {
                     confirmButtonColor: '#5cb85c',
                     confirmButtonText: 'Enviar',
                     showLoaderOnConfirm: true,
+                    validationMessage:'Dirección no válida.',
                     preConfirm: (data) => {
                         return data.value
-                    },
-                    
+                    }
                 }).then((result) => {
                     if (result.isConfirmed) {
                         Swal.fire({
@@ -168,7 +171,8 @@ $(() => {
                                         'razon': razon,
                                         'tienda': tienda,
                                         'email': result.value
-                                    }
+                                    },
+                                    headers: {'X-CSRFToken': csrftoken}
                                 }).done(function (data) {
                                     if(!data.hasOwnProperty('error')){
                                         Swal.fire({

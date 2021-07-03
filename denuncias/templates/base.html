@@ -18,7 +18,7 @@
         <a href="{% url 'logout' %}" class="navbar-brand mb-0 h1">Salir</a>
         {% else %}
         <a href="{% url 'login' %}" class="navbar-brand mb-0 h1">Entrar</a>
-        {% endif %}
+        
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,6 +29,7 @@
                 <button class="btn btn-outline-success my-2 my-sm-0 searching" type="search" id="searching">Buscar</button>
             </form>
         </div>
+        {% endif %}
     </nav>
     
     {% block contenido %}
@@ -59,7 +60,7 @@
         {% endfor %}
     {% endfor %}
     {% endif %}
-    <script type="text/javascript" src=" {% static 'js/main/search.js' %} "></script>
+    <script type="text/javascript" src=" {% static 'js/csrf.js' %} "></script>
 </body>
 </html>
 

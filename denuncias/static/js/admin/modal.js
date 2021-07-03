@@ -24,6 +24,7 @@ $(document).on('click', '.modalDelete', function () {
                         'id': id
                     },
                     dataType: 'JSON',
+                    headers: {'X-CSRFToken': csrftoken}
                 }).done(function (data) {
                     if(!data.hasOwnProperty('error')){
                         // window.location.reload();
@@ -71,6 +72,7 @@ $(document).on('click', '.modalQueja', function () {
                 id: id
             },
             dataType: 'JSON',
+            headers: {'X-CSRFToken': csrftoken}
         }).done(function (data) {
             Swal.fire({
                 html: '<div class="text-justify">' + data.queja + '</div>',

@@ -75,7 +75,11 @@ class Quejas(models.Model):
     sucursal = models.ForeignKey(Sucursales, on_delete=PROTECT)
 
     def toJSON(self):
-        item = model_to_dict(self)
+        item = model_to_dict(self, exclude=['sucursal','id', 'estado', 'creacion'])
+        return item
+    
+    def toSearch(self):
+        item = model_to_dict(self, exclude=['sucursal','id', 'queja'])
         return item
 
     def __str__(self):
@@ -84,3 +88,4 @@ class Quejas(models.Model):
     class Meta:
         verbose_name = "Queja"
         verbose_name_plural = "Quejas"
+

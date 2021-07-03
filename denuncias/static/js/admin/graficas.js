@@ -38,7 +38,8 @@ function contador(){
         url: window.location.pathname,
         method:"POST",
         data:{'action':'count'},
-        dataType: 'JSON'
+        dataType: 'JSON',
+        headers: {'X-CSRFToken': csrftoken}
     }).done(function(data){
         if(!data.hasOwnProperty('error')){
             let medidor = $('#counter')
@@ -62,7 +63,8 @@ function radiales(){
         url: window.location.pathname,
         method:"POST",
         data:{'action':'radial'},
-        dataType: 'JSON'
+        dataType: 'JSON',
+        headers: {'X-CSRFToken': csrftoken}
     }).done(function(data){
         if(!data.hasOwnProperty('error')){
             var obj = data;
@@ -115,7 +117,8 @@ function pie(){
         url: window.location.pathname,
         method:"POST",
         data:{'action':'pie'},
-        dataType: 'JSON'
+        dataType: 'JSON',
+        headers: {'X-CSRFToken': csrftoken}
     }).done(function(data){
         if(!data.hasOwnProperty('error')){
             var obj = data;
@@ -167,7 +170,8 @@ function barras(){
         url: window.location.pathname,
         method:"POST",
         data:{'action':'barra'},
-        dataType: 'JSON'
+        dataType: 'JSON',
+        headers: {'X-CSRFToken': csrftoken}
     }).done(function(data){
         if(!data.hasOwnProperty('error')){
             var obj = data;
@@ -226,7 +230,8 @@ function lineal(){
         url: window.location.pathname,
         method:"POST",
         data:{'action':'lineal'},
-        dataType: 'JSON'
+        dataType: 'JSON',
+        headers: {'X-CSRFToken': csrftoken}
     }).done(function(data){
         if(!data.hasOwnProperty('error')){
             var obj = data;
@@ -293,7 +298,8 @@ function mapa(){
         url: window.location.pathname,
         method:"POST",
         data:{'action':'mapas'},
-        dataType: 'JSON'
+        dataType: 'JSON',
+        headers: {'X-CSRFToken': csrftoken}
     }).done(function(data){
         if(!data.hasOwnProperty('error')){
             var obj = data;

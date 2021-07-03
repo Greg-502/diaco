@@ -19,7 +19,8 @@ $(() => {
             url: window.location.pathname,
             method: 'POST',
             data: {'action': 'allneg'},
-            dataType: 'JSON'
+            dataType: 'JSON',
+            headers: {'X-CSRFToken': csrftoken}
         }).done(function (data){
             if(!data.hasOwnProperty('error')){
                 $.each(data, function(key, value){
@@ -53,7 +54,8 @@ $(() => {
                     'action': 'addCom',
                     'inputNegocio': inputNegocio,
                 },
-                dataType: 'JSON'
+                dataType: 'JSON',
+                headers: {'X-CSRFToken': csrftoken}
             }).done(function (data) {
                 if(!data.hasOwnProperty('error')){
                     Toast.fire({
@@ -65,7 +67,8 @@ $(() => {
                         url: window.location.pathname,
                         method: 'POST',
                         data: {'action': 'allneg'},
-                        dataType: 'JSON'
+                        dataType: 'JSON',
+                        headers: {'X-CSRFToken': csrftoken}
                     }).done(function (data){
                         if(!data.hasOwnProperty('error')){
                             $.each(data, function(key, value){
@@ -122,7 +125,8 @@ $(() => {
                     'idMux': idMux,
                     'idAll': idAll
                 },
-                dataType: 'JSON'
+                dataType: 'JSON',
+                headers: {'X-CSRFToken': csrftoken}
             }).done(function(data) {
                 if(!data.hasOwnProperty('error')){
                     Toast.fire({

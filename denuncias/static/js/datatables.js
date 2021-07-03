@@ -71,7 +71,7 @@ $(()=>{
             // 'searchPanes',
             {
                 extend: 'pdfHtml5',
-                text:      'Descargar <i class="fas fa-file-pdf"></i>',
+                text:      'PDF <i class="fas fa-file-pdf"></i>',
                 titleAttr: 'Exportar a PDF',
                 className: 'btn btn-outline-danger mb-4',
                 pageSize: 'LETTER',
@@ -93,6 +93,16 @@ $(()=>{
                     }),
                     doc.content[1].table.widths = 
                         Array(doc.content[1].table.body[0].length + 1).join('*').split('');
+                }
+            },
+            {
+                extend: 'excelHtml5',
+                text: 'Excel <i class="fas fa-file-excel"></i>',
+                className: 'btn btn-outline-success mb-4 ml-1',
+                titleAttr: 'Exportar a Excel',
+                orientation: 'landscape',
+                exportOptions: {
+                    columns: [2,3,4,5,6,7]
                 }
             }
         ],
