@@ -32,7 +32,7 @@ MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 LOGIN_REDIRECT_URL = '/data/'
 LOGOUT_REDIRECT_URL = '/'
 
-# SESSION_COOKIE_AGE = 7200
+SESSION_COOKIE_AGE = 7200
 
 # Application definition
 
@@ -121,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'es'
 
-TIME_ZONE = 'America/Guatemala'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 

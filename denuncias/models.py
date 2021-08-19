@@ -79,7 +79,7 @@ class Quejas(models.Model):
         return item
     
     def toSearch(self):
-        item = model_to_dict(self, exclude=['sucursal','id', 'queja'])
+        item = model_to_dict(**self, exclude=['sucursal','id', 'queja'])
         return item
 
     def __str__(self):

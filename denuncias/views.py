@@ -1,21 +1,9 @@
-import threading
-from django.core import serializers
-# import smtplib
-# from email.mime.text import MIMEText
-# from email.mime.multipart import MIMEMultipart
-# from django.contrib.sites.shortcuts import get_current_site
-from django.template.loader import get_template
-from django.core.mail import EmailMultiAlternatives
 from django.http.response import HttpResponse, JsonResponse
-# from django.template.loader import render_to_string
-from django.views.decorators.csrf import csrf_exempt
-from django.utils.decorators import method_decorator
 from django.views.generic import ListView, TemplateView
-# from django.contrib.messages.views import SuccessMessageMixin
+import pytz
 from datetime import datetime
 from django.db import connection
-from django.shortcuts import redirect, render
-from django.conf import settings
+from .send_mail import send_mail
 from .models import *
 from .forms import *
 
@@ -40,12 +28,13 @@ class Main(TemplateView):
                     data.append({'pk': i.pk, 'sucrs': i.ubicacion})
             elif action == 'crqueja':
                 try:
-                    actual = datetime.now()
+                    timezone = pytz.timezone('America/Guatemala')
+                    actual = datetime.now(timezone)
                     cursor = connection.cursor()
                     cursor.execute("call spInsertQueja("+'%s'+","+'%s'+","+'%s'+")", [request.POST['razon'], actual, request.POST['tienda']] )
-
+                    
                     email_to = request.POST['email']
-                    self.send_mail(email_to)
+                    send_mail(email_to)
                 except Exception as e:
                     print(e)
                     return False
@@ -62,7 +51,9 @@ class Main(TemplateView):
             elif action == 'search':
                 data = []
                 try:
-                    data = Quejas.objects.get(pk=request.POST['id']).toSearch()
+                    for i in Quejas.objects.raw('call spSearching('+"%s"+')', [request.POST['id']]):
+                        data.append({'estado': i.estado, 'creacion': i.creacion, 'municipio': i.municipio, 'negocio': i.negocio})
+                    # data = Quejas.objects.get(pk=request.POST['id']).toSearch()
                 except Exception as e:
                     return HttpResponse(e)
             else:
@@ -70,66 +61,6 @@ class Main(TemplateView):
         except Exception as e:
             data['error'] = str(e)
         return JsonResponse(data, safe=False)
-
-    def create_mail(self, email, subject, template_path, context):
-        template = get_template(template_path)
-        content = template.render(context)
-
-        mail = EmailMultiAlternatives(
-            subject = subject,
-            body = '',
-            from_email = settings.EMAIL_HOST_USER,
-            to = [
-                email
-            ],
-            cc=[]
-        )
-        mail.attach_alternative(content, 'text/html')
-        return mail
-
-    def send_welcome_mail(self, request):
-        welcome_mail = self.create_mail(
-            'gp.israel@icloud.com',
-            'Prueba de envio de correo',
-            'emails/buy.html',
-            {
-                'username': request
-            }
-        )
-
-        welcome_mail.send(fail_silently = False)
-
-    def send_mail(self, request):
-        thread = threading.Thread(
-            target = self.send_welcome_mail(request),
-            args=(request,)
-        )
-
-        thread.start()
-        return True
-
-        # try:
-        #     email_to = email
-        #     mailServer = smtplib.SMTP(settings.EMAIL_HOST, settings.EMAIL_PORT)
-        #     mailServer.ehlo()
-        #     mailServer.starttls()
-        #     mailServer.ehlo()
-        #     mailServer.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
-
-        #     mensaje = MIMEMultipart()
-        #     mensaje['From']=settings.EMAIL_HOST_USER
-        #     mensaje['To']=email_to
-        #     mensaje['Subject']="Tienes un correo"
-
-        #     content = render_to_string('emails/buy.html', {'username': 'Greg Puac'})
-        #     mensaje.attach(MIMEText(content, 'html'))
-
-        #     mailServer.sendmail(settings.EMAIL_HOST_USER, email_to, mensaje.as_string())
-        #     print('Enviado...')
-
-        #     return True
-        # except Exception as e:
-        #     print(e)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -175,6 +106,13 @@ class Data(ListView):
                 data = []
                 for i in Quejas.objects.raw('call spXmapa'):
                     data.append({'mapa': i.mapa, 'totales':i.totales})
+            elif action == 'search':
+                data = []
+                try:
+                    for i in Quejas.objects.raw('call spSearching('+"%s"+')', [request.POST['id']]):
+                        data.append({'estado': i.estado, 'creacion': i.creacion, 'municipio': i.municipio, 'negocio': i.negocio})
+                except Exception as e:
+                    return HttpResponse(e)
             else:
                 data['error'] = 'No ha ingresado a ninguna opción'
         except Exception as e:
