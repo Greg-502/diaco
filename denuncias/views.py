@@ -51,9 +51,8 @@ class Main(TemplateView):
             elif action == 'search':
                 data = []
                 try:
-                    for i in Quejas.objects.raw('call spSearching('+"%s"+')', [request.POST['id']]):
-                        data.append({'estado': i.estado, 'creacion': i.creacion, 'municipio': i.municipio, 'negocio': i.negocio})
-                    # data = Quejas.objects.get(pk=request.POST['id']).toSearch()
+                    res = Quejas.objects.raw('call spSearching('+"%s"+')', [request.POST['id']])
+                    data.append({'estado': res[0].estado, 'creacion': res[0].creacion, 'municipio': res[0].municipio, 'negocio': res[0].negocio})
                 except Exception as e:
                     return HttpResponse(e)
             else:
@@ -107,10 +106,16 @@ class Data(ListView):
                 for i in Quejas.objects.raw('call spXmapa'):
                     data.append({'mapa': i.mapa, 'totales':i.totales})
             elif action == 'search':
+                # data = []
+                # try:
+                #     for i in Quejas.objects.raw('call spSearching('+"%s"+')', [request.POST['id']]):
+                #         data.append({'estado': i.estado, 'creacion': i.creacion, 'municipio': i.municipio, 'negocio': i.negocio})
+                # except Exception as e:
+                #     return HttpResponse(e)
                 data = []
                 try:
-                    for i in Quejas.objects.raw('call spSearching('+"%s"+')', [request.POST['id']]):
-                        data.append({'estado': i.estado, 'creacion': i.creacion, 'municipio': i.municipio, 'negocio': i.negocio})
+                    res = Quejas.objects.raw('call spSearching('+"%s"+')', [request.POST['id']])
+                    data.append({'estado': res[0].estado, 'creacion': res[0].creacion, 'municipio': res[0].municipio, 'negocio': res[0].negocio})
                 except Exception as e:
                     return HttpResponse(e)
             else:

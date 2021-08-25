@@ -71,7 +71,7 @@ class Sucursales(models.Model):
 class Quejas(models.Model):
     queja = models.TextField()
     estado = models.BooleanField(default=True)
-    creacion = models.DateTimeField(default=datetime.now())
+    creacion = models.DateTimeField(auto_now_add=True)
     sucursal = models.ForeignKey(Sucursales, on_delete=PROTECT)
 
     def toJSON(self):
@@ -79,7 +79,7 @@ class Quejas(models.Model):
         return item
     
     def toSearch(self):
-        item = model_to_dict(**self, exclude=['sucursal','id', 'queja'])
+        item = model_to_dict(**self, exclude=['estado', 'creacion'])
         return item
 
     def __str__(self):

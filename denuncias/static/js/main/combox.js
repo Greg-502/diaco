@@ -136,79 +136,77 @@ $(() => {
     });
 
     boton.click(function(e){
-            var tienda = sucursales.val();
-	        var razon = queja.val().trim();
-
-            if(razon && tienda){
-                e.preventDefault()
-                Swal.fire({
-                    icon: 'info',
-                    title: 'Confirmación',
-                    text: 'De seguimiento a su queja, le enviaremos su no. de referencia. Ingrese un correo electrónico.',
-                    input: 'email',
-                    inputAttributes: {
-                      autocapitalize: 'off'
-                    },
-                    confirmButtonColor: '#5cb85c',
-                    confirmButtonText: 'Enviar',
-                    showLoaderOnConfirm: true,
-                    validationMessage:'Dirección no válida.',
-                    preConfirm: (data) => {
-                        return data.value
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        Swal.fire({
-                            title: 'Espere...',
-                            text: 'Se le está enviando el correo de confirmación.',
-                            didOpen: () => {
-                                Swal.showLoading()
-                                $.ajax({
-                                    url: window.location.pathname,
-                                    method: 'POST',
-                                    data: {
-                                        'action': 'crqueja',
-                                        'razon': razon,
-                                        'tienda': tienda,
-                                        'email': result.value
-                                    },
-                                    headers: {'X-CSRFToken': csrftoken}
-                                }).done(function (data) {
-                                    if(!data.hasOwnProperty('error')){
-                                        Swal.fire({
-                                            icon: 'success',
-                                            title: '¡Enviado!',
-                                            text: 'Queja creada. Revise su correo.',
-                                        })
-
-                                        deptos.val(null).trigger("change");
-                                        $('#summernote').summernote('code','');
-
-                                        return false
-                                    }
+        var tienda = sucursales.val();
+	    var razon = queja.val().trim();
+        
+        if(razon && tienda){
+            e.preventDefault()
+            Swal.fire({
+                icon: 'info',
+                title: 'Confirmación',
+                text: 'De seguimiento a su queja, le enviaremos su no. de referencia. Ingrese un correo electrónico.',
+                input: 'email',
+                inputAttributes: {
+                  autocapitalize: 'off'
+                },
+                confirmButtonColor: '#5cb85c',
+                confirmButtonText: 'Enviar',
+                showLoaderOnConfirm: true,
+                validationMessage:'Dirección no válida.',
+                preConfirm: (data) => {
+                    return data.value
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        title: 'Espere...',
+                        text: 'Se le está enviando el correo de confirmación.',
+                        didOpen: () => {
+                            Swal.showLoading()
+                            $.ajax({
+                                url: window.location.pathname,
+                                method: 'POST',
+                                data: {
+                                    'action': 'crqueja',
+                                    'razon': razon,
+                                    'tienda': tienda,
+                                    'email': result.value
+                                },
+                                headers: {'X-CSRFToken': csrftoken}
+                            }).done(function (data) {
+                                if(!data.hasOwnProperty('error')){
                                     Swal.fire({
-                                        icon: 'error',
-                                        title: '¡Error!',
-                                        text: 'Los datos no pudieron ser guardados.',
+                                        icon: 'success',
+                                        title: '¡Enviado!',
+                                        text: 'Queja creada. Revise su correo.',
                                     })
-                                }).fail(function (data){
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: '¡Error!',
-                                        text: 'Algo ha dio mal. Intente nuevamente',
-                                    })
+                                    deptos.val(null).trigger("change");
+                                    $('#summernote').summernote('code','');
+                                    return false
+                                }
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '¡Error!',
+                                    text: 'Los datos no pudieron ser guardados.',
                                 })
-                            }
-                        })
-                    }
-                })
-            } else {
-                e.preventDefault();
-                Swal.fire({
-                    icon: 'warning',
-                    title: '¡Campos vacíos!',
-                    text: 'Todos los campos son obligatorios',
-                })
-            }
-        });
+                            }).fail(function (data){
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: '¡Error!',
+                                    text: 'Algo ha dio mal. Intente nuevamente',
+                                })
+                            })
+                        }
+                    })
+                }
+            })
+        } else {
+            e.preventDefault();
+            Swal.fire({
+                icon: 'warning',
+                title: '¡Campos vacíos!',
+                text: 'Todos los campos son obligatorios',
+            })
+        }
+    });
 })

@@ -16,8 +16,7 @@ buscando.click(function (e){
             dataType: 'JSON',
             headers: {'X-CSRFToken': csrftoken}
         }).done(function (data) {
-            console.log(data)
-            if(data.length != 0){
+            if(!data.hasOwnProperty('error')){
                 if(data[0].estado){
                     estado = 'Pendiente <i class="text-danger fas fa-times-circle"></i>'
                 } else {
@@ -41,17 +40,22 @@ buscando.click(function (e){
             }
             Swal.fire({
                 icon: 'error',
-                title: '¡Nada encontrado!',
-                text: 'Asegurese que el no. sea correcto.',
+                title: 'Oops..!',
+                text: 'Recargue el sitio si el problema persiste.',
             })
-        }).fail(function (data) {
-            console.log(data)
+        }).fail(function(data){
             Swal.fire({
                 icon: 'error',
                 title: '¡Nada encontrado!',
-                text: 'Ingrese un no. de referencia válido.',
+                text: 'Asegurese que el no. sea correcto.',
             })
         });
+    } else if(!id){
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...!',
+            text: 'Campo vacío, ingrese un dato.',
+        })
     } else {
         Swal.fire({
             icon: 'warning',
