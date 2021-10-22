@@ -22,12 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'l9c%*$!ixl*ay@f9kc$nft*#rp556&so&w9(^p#1#t%p0lez+y'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-# ALLOWED_HOSTS = ['diaco502.herokuapp.com']
-ALLOWED_HOSTS = []
-
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 LOGIN_REDIRECT_URL = '/data/'
 LOGOUT_REDIRECT_URL = '/'
@@ -77,26 +71,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'diaco.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'vsvgl17v1v03eljh',
-        # 'USER': 'jrwathta3cxtgnvk',
-        # 'PASSWORD': 'uxxqbexe7qbjd2ya',
-        # 'HOST': 'z5zm8hebixwywy9d.cbetxkdyhwsb.us-east-1.rds.amazonaws.com',
-        # 'PORT': '3306'
-        'NAME': 'diaco',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': ''
-    }
-}
-
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -141,4 +115,5 @@ EMAIL_HOST_PASSWORD = 'pokemon123456'
 EMAIL_PORT = 587
 
 STATIC_URL = '/static/'
+
 ATOMIC_REQUESTS=True
